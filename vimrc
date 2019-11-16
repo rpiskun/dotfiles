@@ -5,10 +5,7 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'scrooloose/nerdtree'
 " Plug 'morhetz/gruvbox'
-" Plug 'sainnhe/gruvbox-material'
 Plug 'doums/darcula'
-" Plug 'altercation/vim-colors-solarized'
-" Plug 'dracula/vim',{ 'as': 'dracula' }
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'ctrlpvim/ctrlp.vim'
@@ -28,9 +25,6 @@ set termguicolors
 set background=dark
 " colorscheme gruvbox
 colorscheme darcula 
-" colorscheme solarized 
-" colorscheme dracula 
-" colorscheme gruvbox-material 
 
 " Keys mapping
 map <C-n> :NERDTreeToggle $HOME<CR>
@@ -59,9 +53,11 @@ set incsearch
 set smartindent
 set fdm=syntax
 set nofoldenable
+set t_Co=256
 
 " Global vars
-let g:airline_theme='base16'
+let g:airline_powerline_fonts = 1
+let g:airline_theme='dark'
 let g:NERDTreeWinSize=40
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
