@@ -33,6 +33,7 @@ map <C-k> :call WinMove('k')<CR>
 map <C-h> :call WinMove('h')<CR>
 map <C-l> :call WinMove('l')<CR>
 nnoremap <F5> :buffers<CR>:buffer<Space> 
+nnoremap <F8> :tabs<CR>:tabn<Space> 
 
 " Sets
 syntax on
