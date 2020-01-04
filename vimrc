@@ -58,6 +58,7 @@ set autowrite
 set hidden
 set ignorecase
 set smartcase
+set directory^=$HOME/.vim/tmp//
 
 " Global vars
 let g:airline_powerline_fonts = 1
@@ -68,7 +69,7 @@ let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
 let g:ctrlp_working_path_mode = 'wrc'
 let g:ctrlp_root_markers = ['.gitignore']
-let g:ycm_global_ycm_extra_conf = "~/.ycm_extra_conf.py"
+let g:ycm_global_ycm_extra_conf = "$HOME/.ycm_extra_conf.py"
 let g:indentLine_leadingSpaceChar='·'
 
 function! WinMove(key)
