@@ -34,6 +34,7 @@ map <C-h> :call WinMove('h')<CR>
 map <C-l> :call WinMove('l')<CR>
 nnoremap <F5> :buffers<CR>:buffer<Space> 
 nnoremap <F8> :tabs<CR>:tabn<Space> 
+nnoremap / /\v
 
 " Sets
 syntax on
@@ -54,6 +55,9 @@ set fdm=syntax
 set nofoldenable
 set t_Co=256
 set autowrite
+set hidden
+set ignorecase
+set smartcase
 
 " Global vars
 let g:airline_powerline_fonts = 1
