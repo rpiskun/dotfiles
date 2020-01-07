@@ -15,6 +15,11 @@ Plug 'Yggdroot/indentLine'
 Plug 'airblade/vim-gitgutter'
 " Plug 'jiangmiao/auto-pairs'
 Plug 'mileszs/ack.vim'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-repeat'
+Plug 'majutsushi/tagbar'
+Plug 'godlygeek/tabular'
+Plug 'jeetsukumaran/vim-buffergator'
 
 " Initialize plugin system
 call plug#end()
@@ -33,9 +38,10 @@ map <C-k> :call WinMove('k')<CR>
 map <C-h> :call WinMove('h')<CR>
 map <C-l> :call WinMove('l')<CR>
 nnoremap <F5> :buffers<CR>:buffer<Space> 
-nnoremap <F8> :tabs<CR>:tabn<Space> 
+nnoremap <F9> :tabs<CR>:tabn<Space> 
 nnoremap / /\v
-
+nnoremap <C-\> :NERDTreeFind<CR>
+nnoremap <F8> :TagbarToggle<CR>
 " Sets
 syntax on
 set number
@@ -61,6 +67,7 @@ set smartcase
 set directory^=$HOME/.vim/tmp//
 
 " Global vars
+let mapleader = ','
 let g:airline_powerline_fonts = 1
 let g:airline_theme='dark'
 let g:airline#extensions#tabline#enabled = 1
