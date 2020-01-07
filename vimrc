@@ -24,6 +24,7 @@ Plug 'jeetsukumaran/vim-buffergator'
 " Initialize plugin system
 call plug#end()
 
+let mapleader = ','
 source ~/.vim/autoload/cscope_maps.vim
 set termguicolors
 set background=dark
@@ -31,17 +32,15 @@ colorscheme gruvbox
 
 " Keys mapping
 map <C-n> :NERDTreeToggle $HOME<CR>
-"noremap <C-w>- :split<CR>
-"noremap <C-w>\ :vsplit<CR>
 map <C-j> :call WinMove('j')<CR>
 map <C-k> :call WinMove('k')<CR>
 map <C-h> :call WinMove('h')<CR>
 map <C-l> :call WinMove('l')<CR>
 nnoremap <F5> :buffers<CR>:buffer<Space> 
-nnoremap <F9> :tabs<CR>:tabn<Space> 
-nnoremap / /\v
-nnoremap <C-\> :NERDTreeFind<CR>
+noremap <F9> :tabs<CR>:tabn<Space> 
+nnoremap <leader>f :NERDTreeFind<CR>
 nnoremap <F8> :TagbarToggle<CR>
+nnoremap / /\v
 " Sets
 syntax on
 set number
@@ -67,7 +66,6 @@ set smartcase
 set directory^=$HOME/.vim/tmp//
 
 " Global vars
-let mapleader = ','
 let g:airline_powerline_fonts = 1
 let g:airline_theme='dark'
 let g:airline#extensions#tabline#enabled = 1
