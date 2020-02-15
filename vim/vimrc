@@ -20,6 +20,7 @@ Plug 'tpope/vim-repeat'
 Plug 'majutsushi/tagbar'
 Plug 'godlygeek/tabular'
 Plug 'jeetsukumaran/vim-buffergator'
+Plug 'preservim/nerdcommenter'
 
 " Initialize plugin system
 call plug#end()
