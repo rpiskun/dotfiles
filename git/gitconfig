@@ -1,0 +1,16 @@
+[user]
+	email = rpiskun@gmail.com
+	name = Roman Piskun
+[alias]
+	co = checkout
+    br = branch
+    ci = commit
+    st = status
+    unstage = "reset HEAD --"
+    last = "log -1 HEAD"
+    mt = "mergetool"
+    dt = "difftool"
+    cane = "commit --amend --no-edit"
+    cia = "commit --amend"
+    cim = "commit -m"
+    tagcommit = "rev-list -n 1"

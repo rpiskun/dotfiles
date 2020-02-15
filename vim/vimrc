@@ -23,7 +23,7 @@ Plug 'jeetsukumaran/vim-buffergator'
 
 " Initialize plugin system
 call plug#end()
-
+set encoding=utf-8
 let mapleader = ','
 source ~/.vim/autoload/cscope_maps.vim
 set termguicolors
@@ -40,6 +40,7 @@ nnoremap <F5> :buffers<CR>:buffer<Space>
 noremap <F9> :tabs<CR>:tabn<Space> 
 nnoremap <leader>f :NERDTreeFind<CR>
 nnoremap <F8> :TagbarToggle<CR>
+nnoremap <F2> :noh<CR>
 nnoremap / /\v
 " Sets
 syntax on
@@ -67,6 +68,13 @@ set directory^=$HOME/.vim/tmp//
 
 " Global vars
 let g:airline_powerline_fonts = 1
+if !exists('g:airline_symbols')
+    let g:airline_symbols = {}
+endif
+" unicode symbols
+let g:airline_symbols.linenr = 'Ξ'
+let g:airline_symbols.whitespace = 'Ξ'
+
 let g:airline_theme='dark'
 let g:airline#extensions#tabline#enabled = 1
 let g:NERDTreeWinSize=40
@@ -76,6 +84,7 @@ let g:ctrlp_working_path_mode = 'wrc'
 let g:ctrlp_root_markers = ['.gitignore']
 let g:ycm_global_ycm_extra_conf = "$HOME/.ycm_extra_conf.py"
 let g:indentLine_leadingSpaceChar='·'
+let g:buffergator_viewport_split_policy="B"
 
 function! WinMove(key)
     let t:curwin = winnr()
