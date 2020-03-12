@@ -7,7 +7,7 @@ Plug 'scrooloose/nerdtree'
 Plug 'morhetz/gruvbox'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'ctrlpvim/ctrlp.vim'
+" Plug 'ctrlpvim/ctrlp.vim'
 Plug 'ycm-core/YouCompleteMe'
 Plug 'tpope/vim-fugitive'
 Plug 'junegunn/vim-easy-align'
@@ -21,6 +21,8 @@ Plug 'majutsushi/tagbar'
 Plug 'godlygeek/tabular'
 Plug 'jeetsukumaran/vim-buffergator'
 Plug 'preservim/nerdcommenter'
+Plug 'junegunn/fzf', { 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
 
 " Initialize plugin system
 call plug#end()
@@ -43,6 +45,9 @@ nnoremap <leader>f :NERDTreeFind<CR>
 nnoremap <F8> :TagbarToggle<CR>
 nnoremap <F2> :noh<CR>
 nnoremap / /\v
+nmap ; :Buffers<CR>
+nmap <leader>t :Files<CR>
+nmap <leader>r :Tags<CR>
 " Sets
 syntax on
 set number
