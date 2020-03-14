@@ -90,7 +90,10 @@ let g:ctrlp_working_path_mode = 'wrc'
 let g:ctrlp_root_markers = ['.gitignore']
 let g:ycm_global_ycm_extra_conf = "$HOME/.ycm_extra_conf.py"
 let g:indentLine_leadingSpaceChar='·'
+
+" Buffergator
 let g:buffergator_viewport_split_policy="B"
+let g:buffergator_suppress_keymaps=1
 
 function! WinMove(key)
     let t:curwin = winnr()
@@ -132,7 +135,4 @@ function! BufSel(pattern)
         echo "No matching buffers"
     endif
 endfunction
-
-"Bind the BufSel() function to a user-command
-command! -nargs=1 BB :call BufSel("<args>")
 
