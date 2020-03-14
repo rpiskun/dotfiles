@@ -45,9 +45,9 @@ nnoremap <leader>f :NERDTreeFind<CR>
 nnoremap <F8> :TagbarToggle<CR>
 nnoremap <F2> :noh<CR>
 nnoremap / /\v
-nmap ; :Buffers<CR>
-nmap <leader>t :Files<CR>
-nmap <leader>r :Tags<CR>
+nnoremap ; :Buffers<CR>
+nnoremap <leader>t :Files<CR>
+nnoremap <leader>r :Tags<CR>
 " Sets
 syntax on
 set number
