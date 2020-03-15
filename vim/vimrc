@@ -48,6 +48,7 @@ nnoremap / /\v
 nnoremap ; :Buffers<CR>
 nnoremap <Leader>t :Files<CR>
 nnoremap <Leader>r :Tags<CR>
+nnoremap <Leader>x :cclose<CR>
 " Sets
 syntax on
 set number
