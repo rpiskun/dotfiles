@@ -103,6 +103,7 @@ nnoremap <Leader>tc :BuffergatorTabsClose<CR>
 let g:ackprg = 'ag --nogroup --nocolor --column'
 cnoreabbrev Ack Ack!
 nnoremap <Leader>a :Ack!<Space>
+nnoremap <Leader>aw :Ack! "\b<cword>\b" <CR>
 
 function! WinMove(key)
     let t:curwin = winnr()
