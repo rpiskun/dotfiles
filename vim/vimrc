@@ -41,13 +41,13 @@ map <C-h> :call WinMove('h')<CR>
 map <C-l> :call WinMove('l')<CR>
 nnoremap <F5> :buffers<CR>:buffer<Space> 
 noremap <F9> :tabs<CR>:tabn<Space> 
-nnoremap <leader>f :NERDTreeFind<CR>
+nnoremap <Leader>f :NERDTreeFind<CR>
 nnoremap <F8> :TagbarToggle<CR>
 nnoremap <F2> :noh<CR>
 nnoremap / /\v
 nnoremap ; :Buffers<CR>
-nnoremap <leader>t :Files<CR>
-nnoremap <leader>r :Tags<CR>
+nnoremap <Leader>t :Files<CR>
+nnoremap <Leader>r :Tags<CR>
 " Sets
 syntax on
 set number
@@ -94,6 +94,15 @@ let g:indentLine_leadingSpaceChar='·'
 " Buffergator
 let g:buffergator_viewport_split_policy="B"
 let g:buffergator_suppress_keymaps=1
+nnoremap <Leader>b :BuffergatorOpen<CR>
+nnoremap <Leader>B :BuffergatorClose<CR>
+nnoremap <Leader>to :BuffergatorTabsOpen<CR>
+nnoremap <Leader>tc :BuffergatorTabsClose<CR>
+
+" Ack.vim"
+let g:ackprg = 'ag --nogroup --nocolor --column'
+cnoreabbrev Ack Ack!
+nnoremap <Leader>a :Ack!<Space>
 
 function! WinMove(key)
     let t:curwin = winnr()
