@@ -72,6 +72,7 @@ set hidden
 set ignorecase
 set smartcase
 set directory^=$HOME/.vim/tmp//
+set noswapfile
 
 " Global vars
 let g:airline_powerline_fonts = 1
