@@ -77,7 +77,7 @@ set wrap
 set showbreak=+
 
 " let &colorcolumn="80,120".join(range(241,360),",")
-colorcolumn=80,120
+set colorcolumn=80,120
 
 " Airline
 let g:airline_powerline_fonts = 1
