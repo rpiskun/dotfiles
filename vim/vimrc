@@ -39,7 +39,6 @@ map <C-j> :call WinMove('j')<CR>
 map <C-k> :call WinMove('k')<CR>
 map <C-h> :call WinMove('h')<CR>
 map <C-l> :call WinMove('l')<CR>
-nnoremap <F5> :buffers<CR>:buffer<Space> 
 noremap <F9> :tabs<CR>:tabn<Space> 
 nnoremap <Leader>f :NERDTreeFind<CR>
 nnoremap <F8> :TagbarToggle<CR>
@@ -75,9 +74,9 @@ set directory^=$HOME/.vim/tmp//
 set noswapfile
 set wrap
 set showbreak=+
-
 " let &colorcolumn="80,120".join(range(241,360),",")
 set colorcolumn=80,120
+let g:indentLine_leadingSpaceChar='·'
 
 " Airline
 let g:airline_powerline_fonts = 1
@@ -90,6 +89,8 @@ let g:airline_symbols.whitespace = 'Ξ'
 " let g:airline_section_b = 'BN: %{bufnr("%")}'
 let g:airline#extensions#branch#format = 2
 let g:airline#extensions#branch#displayed_head_limit = 12
+let g:airline_theme='dark'
+let g:airline#extensions#tabline#enabled = 1
 
 function! CustomLineNumber()
    return join([line('.'), line('$')], '/')
@@ -107,15 +108,8 @@ endfunction
 autocmd User AirlineAfterInit call AirlineInit()
 let g:airline_extensions = ['branch', 'fugitiveline', 'keymap', 'netrw', 'quickfix', 'tabline', 'tagbar', 'term']
 
-let g:airline_theme='dark'
-let g:airline#extensions#tabline#enabled = 1
 let g:NERDTreeWinSize=40
-let g:ctrlp_map = '<c-p>'
-let g:ctrlp_cmd = 'CtrlP'
-let g:ctrlp_working_path_mode = 'wrc'
-let g:ctrlp_root_markers = ['.gitignore']
 let g:ycm_global_ycm_extra_conf = "$HOME/.ycm_extra_conf.py"
-let g:indentLine_leadingSpaceChar='·'
 
 command! TrimWhitespace call TrimWhitespace()
 command! ReplaceDosNewline call ReplaceDosNewline()
@@ -123,8 +117,8 @@ command! ReplaceDosNewline call ReplaceDosNewline()
 " Buffergator
 let g:buffergator_viewport_split_policy="B"
 let g:buffergator_suppress_keymaps=1
-nnoremap <Leader>b :BuffergatorOpen<CR>
-nnoremap <Leader>B :BuffergatorClose<CR>
+nnoremap <F5> :BuffergatorOpen<CR>
+nnoremap <Leader>bc :BuffergatorClose<CR>
 nnoremap <Leader>to :BuffergatorTabsOpen<CR>
 nnoremap <Leader>tc :BuffergatorTabsClose<CR>
 
