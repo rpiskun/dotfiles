@@ -8,7 +8,7 @@ Plug 'morhetz/gruvbox'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 " Plug 'ctrlpvim/ctrlp.vim'
-Plug 'ycm-core/YouCompleteMe'
+" Plug 'ycm-core/YouCompleteMe'
 Plug 'tpope/vim-fugitive'
 Plug 'junegunn/vim-easy-align'
 Plug 'Yggdroot/indentLine'
@@ -51,10 +51,20 @@ nnoremap <Leader>x :cclose<CR>
 " Sets
 syntax on
 set number
+" Use spaces for indentation
+" set tabstop=4
+" set softtabstop=4
+" set shiftwidth=4
+" set expandtab
+
+" Use tabs for indentation
+set noexpandtab
+set copyindent
+set preserveindent
+set softtabstop=0
+set shiftwidth=0
 set tabstop=4
-set softtabstop=4
-set shiftwidth=4
-set expandtab
+
 set lcs+=space:·
 set lcs+=eol:\^
 set lcs+=tab:>-
