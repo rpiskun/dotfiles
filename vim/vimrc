@@ -8,7 +8,7 @@ Plug 'morhetz/gruvbox'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 " Plug 'ctrlpvim/ctrlp.vim'
-" Plug 'ycm-core/YouCompleteMe'
+Plug 'ycm-core/YouCompleteMe'
 Plug 'tpope/vim-fugitive'
 Plug 'junegunn/vim-easy-align'
 Plug 'Yggdroot/indentLine'
@@ -29,7 +29,8 @@ call plug#end()
 set encoding=utf-8
 let mapleader = ','
 source ~/.vim/autoload/cscope_maps.vim
-set termguicolors
+" set termguicolors
+set t_ut=
 set background=dark
 colorscheme gruvbox
 
@@ -63,7 +64,7 @@ set copyindent
 set preserveindent
 set softtabstop=0
 set shiftwidth=0
-set tabstop=4
+set tabstop=8
 
 set lcs+=space:·
 set lcs+=eol:\^
@@ -75,7 +76,9 @@ set incsearch
 set smartindent
 set fdm=syntax
 set nofoldenable
-set t_Co=256
+if &term == "screen"
+	set t_Co=256
+endif
 set autowrite
 set hidden
 set ignorecase
@@ -85,7 +88,7 @@ set noswapfile
 set wrap
 set showbreak=+
 " let &colorcolumn="80,120".join(range(241,360),",")
-set colorcolumn=80,120
+set colorcolumn=80
 let g:indentLine_leadingSpaceChar='·'
 
 " Airline
@@ -119,7 +122,10 @@ autocmd User AirlineAfterInit call AirlineInit()
 let g:airline_extensions = ['branch', 'fugitiveline', 'keymap', 'netrw', 'quickfix', 'tabline', 'tagbar', 'term']
 
 let g:NERDTreeWinSize=40
-let g:ycm_global_ycm_extra_conf = "$HOME/.ycm_extra_conf.py"
+" let g:ycm_global_ycm_extra_conf = "$HOME/.ycm_extra_conf.py"
+" Disable preview buffer
+let g:ycm_add_preview_to_completeopt = 0
+set completeopt-=preview
 
 command! TrimWhitespace call TrimWhitespace()
 command! ReplaceDosNewline call ReplaceDosNewline()
