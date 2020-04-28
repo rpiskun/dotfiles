@@ -159,7 +159,10 @@ endfunction
 
 function! TrimWhitespace()
     let l:save = winsaveview()
+    " trailing whitespaces
     keeppatterns %s/\s\+$//e
+    " one whitespace at the beginning of the line before tab
+    keeppatterns %s/^ \t/\t
     call winrestview(l:save)
 endfunction
 
