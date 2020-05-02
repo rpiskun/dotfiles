@@ -53,18 +53,18 @@ nnoremap <Leader>x :cclose<CR>
 syntax on
 set number
 " Use spaces for indentation
-" set tabstop=4
-" set softtabstop=4
-" set shiftwidth=4
-" set expandtab
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
+set expandtab
 
 " Use tabs for indentation
-set noexpandtab
-set copyindent
-set preserveindent
-set softtabstop=0
-set shiftwidth=0
-set tabstop=8
+" set noexpandtab
+" set copyindent
+" set preserveindent
+" set softtabstop=0
+" set shiftwidth=0
+" set tabstop=8
 
 set lcs+=space:·
 set lcs+=eol:\^
@@ -160,9 +160,9 @@ endfunction
 function! TrimWhitespace()
     let l:save = winsaveview()
     " trailing whitespaces
-    keeppatterns %s/\s\+$//e
+    silent! keeppatterns %s/\s\+$//e
     " one whitespace at the beginning of the line before tab
-    keeppatterns %s/^ \t/\t
+    silent! keeppatterns %s/^ \t/\t
     call winrestview(l:save)
 endfunction
 
