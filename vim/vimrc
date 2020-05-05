@@ -53,18 +53,18 @@ nnoremap <Leader>x :cclose<CR>
 syntax on
 set number
 " Use spaces for indentation
-set tabstop=4
-set softtabstop=4
-set shiftwidth=4
-set expandtab
+" set tabstop=4
+" set softtabstop=4
+" set shiftwidth=4
+" set expandtab
 
 " Use tabs for indentation
-" set noexpandtab
-" set copyindent
-" set preserveindent
-" set softtabstop=0
-" set shiftwidth=0
-" set tabstop=8
+set noexpandtab
+set copyindent
+set preserveindent
+set softtabstop=0
+set shiftwidth=0
+set tabstop=8
 
 set lcs+=space:·
 set lcs+=eol:\^
@@ -133,7 +133,7 @@ command! ReplaceDosNewline call ReplaceDosNewline()
 " Buffergator
 let g:buffergator_viewport_split_policy="B"
 let g:buffergator_suppress_keymaps=1
-nnoremap <F5> :BuffergatorOpen<CR>
+nnoremap <Leader>bb :BuffergatorOpen<CR>
 nnoremap <Leader>bc :BuffergatorClose<CR>
 nnoremap <Leader>to :BuffergatorTabsOpen<CR>
 nnoremap <Leader>tc :BuffergatorTabsClose<CR>
