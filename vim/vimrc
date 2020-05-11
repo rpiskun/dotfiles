@@ -45,10 +45,6 @@ nnoremap <Leader>f :NERDTreeFind<CR>
 nnoremap <F8> :TagbarToggle<CR>
 nnoremap <F2> :noh<CR>
 nnoremap / /\v
-nnoremap ; :Buffers<CR>
-nnoremap <Leader>t :Files<CR>
-nnoremap <Leader>r :Tags<CR>
-nnoremap <Leader>x :cclose<CR>
 " Sets
 syntax on
 set number
@@ -135,14 +131,36 @@ let g:buffergator_viewport_split_policy="B"
 let g:buffergator_suppress_keymaps=1
 nnoremap <Leader>bb :BuffergatorOpen<CR>
 nnoremap <Leader>bc :BuffergatorClose<CR>
-nnoremap <Leader>to :BuffergatorTabsOpen<CR>
-nnoremap <Leader>tc :BuffergatorTabsClose<CR>
+nnoremap <Leader>btt :BuffergatorTabsOpen<CR>
+nnoremap <Leader>btc :BuffergatorTabsClose<CR>
 
 " Ack.vim"
 let g:ackprg = 'ag --nogroup --nocolor --column'
 cnoreabbrev Ack Ack!
+" Ack.vim keymapping
 nnoremap <Leader>a :Ack!<Space>
-nnoremap <Leader>aw :Ack! <C-R>=expand("<cword>")<CR><CR>
+nnoremap <Leader>wa :Ack! <C-R>=expand("<cword>")<CR><CR>
+
+" fzf.vim
+command! -bang -nargs=? -complete=dir Files
+    \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
+" Rg with fzf
+function! RipgrepFzf(query, fullscreen)
+  let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case -- %s || true'
+  let initial_command = printf(command_fmt, shellescape(a:query))
+  let reload_command = printf(command_fmt, '{q}')
+  let spec = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
+  call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
+endfunction
+
+command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
+" fzf.vim keymapping
+nnoremap <Leader>e :Buffers<CR>
+nnoremap <Leader>t :Files<CR>
+nnoremap <Leader>r :Tags<CR>
+nnoremap <Leader>q :RG<CR>
+nnoremap <Leader>wq :RG <C-R><C-W><space><CR>
+nnoremap <Leader>x :cclose<CR>
 
 function! WinMove(key)
     let t:curwin = winnr()
