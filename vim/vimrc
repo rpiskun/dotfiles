@@ -138,8 +138,8 @@ nnoremap <Leader>btc :BuffergatorTabsClose<CR>
 let g:ackprg = 'ag --nogroup --nocolor --column'
 cnoreabbrev Ack Ack!
 " Ack.vim keymapping
-nnoremap <Leader>a :Ack!<Space>
-nnoremap <Leader>wa :Ack! <C-R>=expand("<cword>")<CR><CR>
+"nnoremap <Leader>a :Ack!<Space>
+"nnoremap <Leader>wa :Ack! <C-R>=expand("<cword>")<CR><CR>
 
 " fzf.vim
 command! -bang -nargs=? -complete=dir Files
@@ -161,6 +161,11 @@ nnoremap <Leader>r :Tags<CR>
 nnoremap <Leader>q :RG<CR>
 nnoremap <Leader>wq :RG <C-R><C-W><space><CR>
 nnoremap <Leader>x :cclose<CR>
+nnoremap <Leader>a :Ag<Space>
+nnoremap <Leader>wa :Ag <C-R>=expand("<cword>")<CR><CR>
+nnoremap <Leader>l :Lines<Space>
+nnoremap <Leader>bl :BLines<Space>
+nnoremap <Leader>wl :Lines <C-R>=expand("<cword>")<CR><CR>
 
 function! WinMove(key)
     let t:curwin = winnr()
