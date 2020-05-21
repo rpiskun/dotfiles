@@ -142,6 +142,7 @@ nnoremap <Leader>a :Ack!<Space>
 nnoremap <Leader>wa :Ack! <C-R>=expand("<cword>")<CR><CR>
 
 " fzf.vim
+let g:fzf_files_options = '--preview "bat --theme="OneHalfDark" --style=numbers,changes --color always {2..-1} | head -'.&lines.'"'
 command! -bang -nargs=? -complete=dir Files
     \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
 " Rg with fzf
@@ -163,8 +164,8 @@ nnoremap <Leader>wq :RG <C-R><C-W><CR>
 nnoremap <Leader>x :cclose<CR>
 nnoremap <Leader>z :Ag<Space>
 nnoremap <Leader>wz :Ag <C-R>=expand("<cword>")<CR><CR>
-nnoremap <Leader>l :Lines<Space>
-nnoremap <Leader>bl :BLines<Space>
+nnoremap <Leader>l :Lines<Space><CR>
+nnoremap <Leader>bl :BLines<Space><CR>
 nnoremap <Leader>wl :Lines <C-R>=expand("<cword>")<CR><CR>
 
 function! WinMove(key)
