@@ -4,7 +4,8 @@
 call plug#begin('~/.vim/plugged')
 
 Plug 'scrooloose/nerdtree'
-Plug 'morhetz/gruvbox'
+" Plug 'morhetz/gruvbox'
+Plug 'ayu-theme/ayu-vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 " Plug 'ctrlpvim/ctrlp.vim'
@@ -29,10 +30,14 @@ call plug#end()
 set encoding=utf-8
 let mapleader = ','
 source ~/.vim/autoload/cscope_maps.vim
-" set termguicolors
+set termguicolors
 set t_ut=
 set background=dark
-colorscheme gruvbox
+" colorscheme gruvbox
+" let ayucolor="light"
+" let ayucolor="mirage"
+let ayucolor="dark"
+colorscheme ayu
 
 " Keys mapping
 map <C-n> :NERDTreeToggle $HOME<CR>
@@ -118,9 +123,13 @@ autocmd User AirlineAfterInit call AirlineInit()
 let g:airline_extensions = ['branch', 'fugitiveline', 'keymap', 'netrw', 'quickfix', 'tabline', 'tagbar', 'term']
 
 let g:NERDTreeWinSize=40
-" let g:ycm_global_ycm_extra_conf = "$HOME/.ycm_extra_conf.py"
+
+" YouCompleteMe
+nmap <F3> <plug>(YCMHover)
+let g:ycm_auto_hover=''
+let g:ycm_show_diagnostics_ui=0
 " Disable preview buffer
-let g:ycm_add_preview_to_completeopt = 0
+let g:ycm_add_preview_to_completeopt=0
 set completeopt-=preview
 
 command! TrimWhitespace call TrimWhitespace()
