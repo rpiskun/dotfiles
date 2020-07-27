@@ -53,6 +53,7 @@ nnoremap / /\v
 " Sets
 syntax on
 set number
+set cursorline
 " Use spaces for indentation
 " set tabstop=4
 " set softtabstop=4
