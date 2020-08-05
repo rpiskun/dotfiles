@@ -180,7 +180,7 @@ nnoremap <Leader>bl :BLines<Space><CR>
 nnoremap <Leader>wl :Lines <C-R>=expand("<cword>")<CR><CR>
 
 " coc.nvim
-nnoremap <leader>c :CocSearch<CR>
+nnoremap <leader>c :CocSearch<Space>
 nnoremap <leader>wc :CocSearch <C-R>=expand("<cword>")<CR><CR>
 
 function! WinMove(key)
