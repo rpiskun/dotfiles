@@ -50,6 +50,7 @@ noremap <F9> :tabs<CR>:tabn<Space>
 nnoremap <Leader>f :NERDTreeFind<CR>
 nnoremap <F8> :TagbarToggle<CR>
 nnoremap <F2> :noh<CR>
+nnoremap <F5> :set list!<CR>
 nnoremap / /\v
 " Sets
 syntax on
