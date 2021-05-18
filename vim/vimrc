@@ -6,23 +6,19 @@ call plug#begin('~/.vim/plugged')
 Plug 'scrooloose/nerdtree'
 " Plug 'morhetz/gruvbox'
 Plug 'gruvbox-community/gruvbox'
-" Plug 'ayu-theme/ayu-vim'
+Plug 'ayu-theme/ayu-vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-" Plug 'ctrlpvim/ctrlp.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'ycm-core/YouCompleteMe'
 Plug 'tpope/vim-fugitive'
 Plug 'junegunn/vim-easy-align'
 Plug 'Yggdroot/indentLine'
 Plug 'airblade/vim-gitgutter'
-" Plug 'jiangmiao/auto-pairs'
 Plug 'mileszs/ack.vim'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'majutsushi/tagbar'
-Plug 'godlygeek/tabular'
-Plug 'jeetsukumaran/vim-buffergator'
 Plug 'preservim/nerdcommenter'
 Plug 'junegunn/fzf', { 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
@@ -31,15 +27,25 @@ Plug 'junegunn/fzf.vim'
 call plug#end()
 set encoding=utf-8
 let mapleader = ','
+set scrolloff=0
 source ~/.vim/autoload/cscope_maps.vim
 set termguicolors
-set t_ut=
+" set t_ut=
 set background=dark
 colorscheme gruvbox
+let g:gruvbox_contrast_dark = 'hard'
+" if exists('+termguicolors')
+" 	let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+" 	let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+" endif
 " let ayucolor="light"
 " let ayucolor="mirage"
 " let ayucolor="dark"
 " colorscheme ayu
+
+if &diff
+	colorscheme gruvbox
+endif
 
 " Keys mapping
 map <C-n> :NERDTreeToggle $HOME<CR>
@@ -47,12 +53,24 @@ map <C-j> :call WinMove('j')<CR>
 map <C-k> :call WinMove('k')<CR>
 map <C-h> :call WinMove('h')<CR>
 map <C-l> :call WinMove('l')<CR>
-noremap <F9> :tabs<CR>:tabn<Space> 
+noremap <F9> :tabs<CR>:tabn<Space>
 nnoremap <Leader>f :NERDTreeFind<CR>
 nnoremap <F8> :TagbarToggle<CR>
-nnoremap <F2> :noh<CR>
 nnoremap <F5> :set list!<CR>
+nnoremap <F2> :noh<CR>
 nnoremap / /\v
+nnoremap <Leader>bo :%bd\|e#\|bd#<CR>
+nnoremap <Leader>gg :grep<Space>
+nnoremap <Leader>gl :lgrep<Space>
+nnoremap <Leader>qq :copen<CR>
+nnoremap <Leader>ql :lopen<CR>
+nnoremap <silent> [f :cprev<CR>
+nnoremap <silent> ]f :cnext<CR>
+nnoremap <silent> [l :lprev<CR>
+nnoremap <silent> ]l :lnext<CR>
+command! BufOnly silent! execute "%bd|e#|bd#"
+" autocmd BufWritePre * :call TrimWhitespace()
+
 " Sets
 syntax on
 set number
@@ -73,18 +91,24 @@ set tabstop=8
 
 set lcs+=space:·
 set lcs+=eol:\^
-set lcs+=tab:>-
+" set lcs+=tab:>-
+set lcs+=tab:\┊\ 
+set fillchars+=vert:\▏
+hi SpecialKey ctermfg=grey guifg=grey20
 set list
-set fillchars+=vert:\|
+let g:indentLine_enabled = 1
+let g:indentLine_char = '┊'
 set hlsearch
 set incsearch
 set smartindent
-set fdm=syntax
+" set fdm=syntax
+set fdm=manual
 set nofoldenable
 if &term == "screen"
 	set t_Co=256
 endif
 set autowrite
+set noconfirm
 set hidden
 set ignorecase
 set smartcase
@@ -94,7 +118,24 @@ set wrap
 set showbreak=+
 " let &colorcolumn="80,120".join(range(241,360),",")
 set colorcolumn=80
+set grepprg=rg\ --vimgrep\ --no-heading\ --smart-case
 let g:indentLine_leadingSpaceChar='·'
+" match ErrorMsg '\(^ \+\|^\t\+ \+$\|^\t\+ \+\t\+\)'
+
+function! LoadCscope()
+  set nocscopeverbose
+  let db = findfile("cscope.out", ".;")
+  if (!empty(db))
+    let path = strpart(db, 0, match(db, "/cscope.out$"))
+    " set nocscopeverbose " suppress 'duplicate connection' error
+    exe "cs add " . db . " " . path
+    " set cscopeverbose
+  " else add the database pointed to by environment variable
+  elseif $CSCOPE_DB != ""
+    cs add $CSCOPE_DB
+  endif
+endfunction
+au BufEnter /* call LoadCscope()
 
 " Airline
 let g:airline_powerline_fonts = 1
@@ -148,7 +189,7 @@ nnoremap <Leader>btt :BuffergatorTabsOpen<CR>
 nnoremap <Leader>btc :BuffergatorTabsClose<CR>
 
 " Ack.vim"
-let g:ackprg = 'ag --nogroup --nocolor --column'
+let g:ackprg = 'rg --vimgrep --no-heading --smart-case '
 cnoreabbrev Ack Ack!
 " Ack.vim keymapping
 nnoremap <Leader>a :Ack!<Space>
@@ -177,13 +218,14 @@ nnoremap <Leader>wq :RG <C-R><C-W><CR>
 nnoremap <Leader>x :cclose<CR>
 nnoremap <Leader>z :Ag<Space>
 nnoremap <Leader>wz :Ag <C-R>=expand("<cword>")<CR><CR>
-nnoremap <Leader>l :Lines<Space><CR>
-nnoremap <Leader>bl :BLines<Space><CR>
-nnoremap <Leader>wl :Lines <C-R>=expand("<cword>")<CR><CR>
+nnoremap <Leader>bl :Lines<Space><CR>
+nnoremap <Leader>l :BLines<Space><CR>
+nnoremap <Leader>wl :BLines <C-R>=expand("<cword>")<CR><CR>
 
 " coc.nvim
 nnoremap <leader>c :CocSearch<Space>
-nnoremap <leader>wc :CocSearch <C-R>=expand("<cword>")<CR><CR>
+nnoremap <leader>wc :CocSearch <C-R>=expand("<cword>")<CR> -g *.[ch]<CR>
+" nnoremap <leader>wc :CocSearch <C-R>=expand("<cword>")<CR><CR>
 
 function! WinMove(key)
     let t:curwin = winnr()
@@ -210,3 +252,4 @@ endfunction
 function! ReplaceDosNewline()
     silent! :%s/$//g
 endfunction
+
