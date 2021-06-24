@@ -18,10 +18,11 @@ Plug 'airblade/vim-gitgutter'
 Plug 'mileszs/ack.vim'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
-Plug 'majutsushi/tagbar'
 Plug 'preservim/nerdcommenter'
 Plug 'junegunn/fzf', { 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
+Plug 'preservim/tagbar'
+Plug 'rust-lang/rust.vim'
 
 " Initialize plugin system
 call plug#end()
