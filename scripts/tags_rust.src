@@ -1,0 +1,19 @@
+#!/bin/bash
+
+CTAGS_DIR="$PWD/ctags"
+RUST_TOOLCHAIN_DIR="$HOME/.rustup/toolchains"
+
+if [ ! -d "$CTAGS_DIR" ]; then
+	mkdir "$CTAGS_DIR"
+fi
+
+echo "Finding files ..."
+find "$RUST_TOOLCHAIN_DIR" "$(pwd)" \
+	-name "*.rs" -print \
+	> "$CTAGS_DIR/ctags.files"
+
+echo "Generating ctags tags ..."
+
+ctags -L "$CTAGS_DIR/ctags.files"
+
+echo "Done"
