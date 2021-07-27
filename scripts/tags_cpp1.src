@@ -1,0 +1,29 @@
+#!/bin/bash
+
+TAGSDB_PATH="$PWD/tagsdb"
+SDK_DIR="/opt/poky/2.6.4/sysroots/aarch64-poky-linux"
+
+if [ ! -d "$TAGSDB_PATH" ]; then
+	mkdir "$TAGSDB_PATH"
+fi
+
+echo "Generate sources list ..."
+fd '.*\.(h|hpp|c|cpp)$' --no-ignore "$(pwd)" "$SDK_DIR/usr/include/ara" \
+	> "$TAGSDB_PATH/tagsdb.files" 2>/dev/null
+
+pushd .
+cd "$TAGSDB_PATH"
+
+echo "Generating cscope tags ..."
+cscope -b -q -i "$TAGSDB_PATH/tagsdb.files"
+export CSCOPE_DB="$TAGSDB_PATH/cscope.out"
+echo "Exported CSCOPE_DB to: '$CSCOPE_DB'"
+
+echo "Generating ctags tags ..."
+# ctags --c++-kinds=+Nlp --fields=+iaSt --extras=+q --language-force=C++ -R
+ctags --c++-kinds=+Nlp --fields=+iaSt --extras=+q --language-force=C++ -L "$TAGSDB_PATH/tagsdb.files"
+export CTAGS_DB="$TAGSDB_PATH/tags"
+echo "Exported CTAGS_DB to: '$CTAGS_DB'"
+
+popd
+echo "Done"

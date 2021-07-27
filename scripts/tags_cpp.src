@@ -21,5 +21,5 @@ export CSCOPE_DB="$PWD/cscope.out"
 echo "Exported CSCOPE_DB to: '$CSCOPE_DB'"
 
 echo "Generating ctags tags ..."
-ctags --c++-kinds=+p --fields=+iaS --extra=+q --language-force=C++ -R
+ctags --c++-kinds=+Nlp --fields=+iaSt --extras=+q --language-force=C++ -R
 echo "Done"
