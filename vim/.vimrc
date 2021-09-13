@@ -59,7 +59,7 @@ nnoremap <Leader>f :NERDTreeFind<CR>
 nnoremap <F8> :TagbarToggle<CR>
 nnoremap <F5> :set list!<CR>
 nnoremap <F2> :noh<CR>
-nnoremap / /\v
+" nnoremap / /\v
 nnoremap <Leader>bo :%bd\|e#\|bd#<CR>
 nnoremap <Leader>gg :grep<Space>
 nnoremap <Leader>gl :lgrep<Space>
@@ -76,19 +76,21 @@ command! BufOnly silent! execute "%bd|e#|bd#"
 syntax on
 set number
 set cursorline
-" Use spaces for indentation
-" set tabstop=4
-" set softtabstop=4
-" set shiftwidth=4
-" set expandtab
+" Use spaces for indentation -- START --
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
+set expandtab
+" Use spaces for indentation -- END --
 
-" Use tabs for indentation
-set noexpandtab
-set copyindent
-set preserveindent
-set softtabstop=0
-set shiftwidth=0
-set tabstop=8
+" Use tabs for indentation -- START --
+" set noexpandtab
+" set copyindent
+" set preserveindent
+" set softtabstop=0
+" set shiftwidth=0
+" set tabstop=8
+" Use tabs for indentation -- END --
 
 set lcs+=space:·
 set lcs+=eol:\^
@@ -96,7 +98,7 @@ set lcs+=eol:\^
 set lcs+=tab:\┊\ 
 set fillchars+=vert:\▏
 hi SpecialKey ctermfg=grey guifg=grey20
-set list
+set nolist
 let g:indentLine_enabled = 1
 let g:indentLine_char = '┊'
 set hlsearch
@@ -118,7 +120,7 @@ set noswapfile
 set wrap
 set showbreak=+
 " let &colorcolumn="80,120".join(range(241,360),",")
-set colorcolumn=80
+set colorcolumn=120
 set grepprg=rg\ --vimgrep\ --no-heading\ --smart-case
 let g:indentLine_leadingSpaceChar='·'
 " match ErrorMsg '\(^ \+\|^\t\+ \+$\|^\t\+ \+\t\+\)'
@@ -137,6 +139,13 @@ function! LoadCscope()
   endif
 endfunction
 au BufEnter /* call LoadCscope()
+
+function! LoadCtags()
+  if $CTAGS_DB != ""
+    set tags=$CTAGS_DB
+  endif
+endfunction
+au BufEnter /* call LoadCtags()
 
 " Airline
 let g:airline_powerline_fonts = 1
