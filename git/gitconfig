@@ -1,33 +1,47 @@
 [user]
-	name = rpiskun
-	email = rpiskun@gmail.com
-[core]
-	autocrlf = input
-	editor = vim
-[apply]
-	ignorewhitespace = change
-[color]
-	ui = auto
-	diff = auto
+	name = piskuro
+	email = Roman.Piskun.extern@brose.com
+[push]
+	default = simple
 [diff]
-	tool = vimdiff
+	tool = bc
+[difftool "bc"]
+	cmd = \"c:/Program Files (x86)/Beyond Compare 4/Bcomp.exe\" \"$(cygpath -w $LOCAL)\" \"$(cygpath -w $REMOTE)\"
+[difftool "vimdiff"]
+	cmd = \"nvim\" \"-d\" \"$(cygpath -w $LOCAL)\" \"$(cygpath -w $REMOTE)\"
 [difftool]
 	prompt = false
 [merge]
-	tool = vimdiff
-	conflictstyle = diff3
+	tool = bc
+[mergetool "bc"]
+	cmd = \"c:/Program Files (x86)/Beyond Compare 4/Bcomp.exe\" \"$(cygpath -w $LOCAL)\" \"$(cygpath -w $REMOTE)\" \"$(cygpath -w $BASE)\" \"$(cygpath -w $MERGED)\"
+	trustExitCode = true
 [mergetool]
 	prompt = false
+	keepBackup = false
+[core]
+	filemode = false
+	ignorecase = true
+	excludesfile = R:/.gitignore_gbl
+[fetch]
+	prune = true
 [alias]
-	co = checkout
-	br = branch
-	ci = commit
-	st = status
-	unstage = "reset HEAD --"
-	last = "log -1 HEAD"
-	mt = "mergetool"
-	dt = "difftool"
-	cane = "commit --amend --no-edit"
-	cia = "commit --amend"
-	cim = "commit -m"
-	tagcommit = "rev-list -n 1"
+	lg = log --all --color --graph --pretty=format:'%ad %C(red)%h%Creset %C(bold blue)<%an>%Creset:%C(yellow)%d%Creset %s' --abbrev-commit
+    lgdiff = log --date=short --no-merges --pretty=format:'%ad %C(red)%h%Creset %C(bold blue)<%an>%Creset:%C(yellow)%d%Creset %s' --abbrev-commit
+    tg = tag --color=always --format='%(objectname) %(objecttype)\t\t%(refname)'
+    co = checkout
+    br = branch
+    ci = commit
+    st = status
+    unstage = "reset HEAD --"
+    last = "log -1 HEAD"
+    mt = "mergetool"
+    dt = "difftool"
+    vdt = "difftool --tool=vimdiff"
+    cane = "commit --amend --no-edit"
+    cia = "commit --amend"
+    cim = "commit -m"
+    tagcommit = "rev-list -n 1"
+    sw = "switch"
+    lgg = log --date=short --no-merges --pretty=format:'%ad %C(red)%h%Creset %C(bold blue)<%an>%Creset:%C(yellow)%d%Creset %s' --abbrev-commit
+    lggg = log --date=short --no-merges --pretty=format:'%ad %h <%an>:%d %s' --abbrev-commit
