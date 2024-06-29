@@ -5,6 +5,11 @@ local lsp_flags = {
 
 -- custom on_attach
 local custom_attach = function(client, bufnr)
+    -- debug
+    vim.lsp.set_log_level("debug")
+    -- vim.lsp.set_log_level("off")
+    -- disable diagnostic by default
+    vim.diagnostic.disable()
     local bufopts = { noremap=true, silent=true, buffer=bufnr }
     vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
     vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
@@ -27,7 +32,7 @@ require'lspconfig'.rust_analyzer.setup{
 }
 
 -- Lua
-require'lspconfig'.sumneko_lua.setup {
+require'lspconfig'.lua_ls.setup {
   settings = {
     Lua = {
       runtime = {

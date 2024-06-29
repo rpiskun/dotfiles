@@ -1,44 +1,59 @@
-" Specify a directory for plugins
+" Specify a dgrectory for plugins
 " - For Neovim: stdpath('data') . '/plugged'
 " - Avoid using standard Vim directory names like 'plugin'
-call plug#begin('~/.data/nvim/plugged')
+call plug#begin(stdpath('data') . '/plugged')
 
 Plug 'scrooloose/nerdtree'
 " Plug 'morhetz/gruvbox'
-Plug 'gruvbox-community/gruvbox'
-Plug 'ayu-theme/ayu-vim'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'ycm-core/YouCompleteMe'
+" Plug 'gruvbox-community/gruvbox'
+" Plug 'ayu-theme/ayu-vim'
+" Plug 'vim-airline/vim-airline'
+" Plug 'vim-airline/vim-airline-themes'
+" Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" Plug 'ycm-core/YouCompleteMe'
 Plug 'tpope/vim-fugitive'
 Plug 'junegunn/vim-easy-align'
 Plug 'Yggdroot/indentLine'
-Plug 'airblade/vim-gitgutter'
+" Plug 'airblade/vim-gitgutter'
 Plug 'mileszs/ack.vim'
-Plug 'tpope/vim-surround'
+" Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
-Plug 'preservim/nerdcommenter'
-Plug 'junegunn/fzf', { 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
+" Plug 'preservim/nerdcommenter'
+" Plug 'junegunn/fzf', { 'do': './install --all' }
+" Plug 'junegunn/fzf.vim'
 Plug 'preservim/tagbar'
 Plug 'rust-lang/rust.vim'
 Plug 'rafi/awesome-vim-colorschemes'
 Plug 'kyazdani42/nvim-web-devicons'
+Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' }
+" Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 
 " Initialize plugin system
 call plug#end()
+
+" to make shell works in msys2 environment. Windows cmd.exe is used
+set shell=cmd.exe noshellslash shellquote&vim shellxquote&vim
+
 set encoding=utf-8
 " let mapleader = ','
 nnoremap <SPACE> <Nop>
 let mapleader = " "
-set scrolloff=0
-source ~/.data/nvim/autoload/cscope_maps.vim
+set scrolloff=2
+set laststatus=3
+" source ~/.data/nvim/autoload/cscope_maps.vim
+source ~/.local/share/nvim-data/site/autoload/cscope_maps.vim
 set termguicolors
 " set t_ut=
 set background=dark
-colorscheme gruvbox
-let g:gruvbox_contrast_dark = 'hard'
+" This configuration option should be placed before 'colorscheme gruvbox-material'
+let g:gruvbox_material_background = 'hard'
+let g:gruvbox_material_disable_italic_comment=1
+let g:gruvbox_material_enable_bold=1
+colorscheme gruvbox-material
+
+" colorscheme rose-pine
+" let g:gruvbox_contrast_dark = 'hard'
 " if exists('+termguicolors')
 " 	let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
 " 	let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
@@ -60,7 +75,9 @@ map <C-h> :call WinMove('h')<CR>
 map <C-l> :call WinMove('l')<CR>
 noremap <F9> :tabs<CR>:tabn<Space>
 nnoremap <Leader>d :NERDTreeFind<CR>
-nnoremap <F8> :TagbarToggle<CR>
+nnoremap <Leader><space> :b#<CR>
+nnoremap <F3> :TagbarToggle<CR>
+nnoremap <F4> :set wrap!<CR>
 nnoremap <F5> :set list!<CR>
 nnoremap <F2> :noh<CR>
 " nnoremap / /\v
@@ -70,7 +87,13 @@ nnoremap * *zz
 nnoremap # #zz
 nnoremap g* g*zz
 nnoremap g# g#zz
-nnoremap <Leader>bo :%bd\|e#\|bd#<CR>
+" nnoremap yy "+yy
+" nnoremap yw "+yw
+" nnoremap yiw "+yiw
+noremap <C-d> <C-d>zz
+noremap <C-u> <C-u>zz
+" nnoremap <Leader>bo :%bd\|e#\|bd#<CR>
+nnoremap <Leader>x :cclose<CR>
 nnoremap <Leader>gg :grep<Space>
 nnoremap <Leader>gl :lgrep<Space>
 nnoremap <Leader>qq :copen<CR>
@@ -114,8 +137,8 @@ let g:indentLine_char = '┊'
 set hlsearch
 set incsearch
 set smartindent
-" set fdm=syntax
-set fdm=manual
+" set fdm=manual
+set fdm=indent
 set nofoldenable
 if &term == "screen"
 	set t_Co=256
@@ -128,6 +151,7 @@ set smartcase
 set directory^=$HOME/.vim/tmp//
 set noswapfile
 set wrap
+" set nowrap
 set showbreak=+
 " let &colorcolumn="80,120".join(range(241,360),",")
 set colorcolumn=120
@@ -136,77 +160,40 @@ let g:indentLine_leadingSpaceChar='·'
 " match ErrorMsg '\(^ \+\|^\t\+ \+$\|^\t\+ \+\t\+\)'
 
 function! LoadCscope()
-  set nocscopeverbose
-  let db = findfile("cscope.out", ".;")
-  if (!empty(db))
-    let path = strpart(db, 0, match(db, "/cscope.out$"))
-    " set nocscopeverbose " suppress 'duplicate connection' error
-    exe "cs add " . db . " " . path
-    " set cscopeverbose
-  " else add the database pointed to by environment variable
-  elseif $CSCOPE_DB != ""
-    cs add $CSCOPE_DB
-  endif
+    set nocscopeverbose
+    let db = findfile("cscope.out", ".;")
+	if $CSCOPE_DB != ""
+        cs add $CSCOPE_DB
+    elseif (!empty(db))
+        let path = strpart(db, 0, match(db, "/cscope.out$"))
+        " set nocscopeverbose " suppress 'duplicate connection' error
+        exe "cs add " . db . " " . path
+        " set cscopeverbose
+    endif
 endfunction
 au BufEnter /* call LoadCscope()
 
-" Airline
-let g:airline_powerline_fonts = 1
-if !exists('g:airline_symbols')
-    let g:airline_symbols = {}
-endif
-" unicode symbols
-let g:airline_symbols.linenr = 'Ξ'
-let g:airline_symbols.whitespace = 'Ξ'
-" let g:airline_section_b = 'BN: %{bufnr("%")}'
-let g:airline#extensions#branch#format = 2
-let g:airline#extensions#branch#displayed_head_limit = 12
-let g:airline_theme='dark'
-let g:airline#extensions#tabline#enabled = 1
-
-function! CustomLineNumber()
-   return join([line('.'), line('$')], '/')
-endfunction
-
-function! AirlineInit()
-    call airline#parts#define('linenr', {'function': 'CustomLineNumber', 'accents': 'bold'})
-    let g:airline_section_a = airline#section#create(['mode'])
-    let g:airline_section_b = airline#section#create_left(['branch'])
-    let g:airline_section_c = airline#section#create(['%t'])
-    let g:airline_section_x = airline#section#create(['tagbar'])
-    let g:airline_section_y = ''
-    let g:airline_section_z = airline#section#create_right(['linenr'])
-endfunction
-autocmd User AirlineAfterInit call AirlineInit()
-let g:airline_extensions = ['branch', 'fugitiveline', 'keymap', 'netrw', 'quickfix', 'tabline', 'tagbar', 'term']
-
 let g:NERDTreeWinSize=40
-
-" YouCompleteMe
-nmap <F3> <plug>(YCMHover)
-let g:ycm_auto_hover=''
-let g:ycm_show_diagnostics_ui=0
-" Disable preview buffer
-let g:ycm_add_preview_to_completeopt=0
-set completeopt-=preview
 
 command! TrimWhitespace call TrimWhitespace()
 command! ReplaceDosNewline call ReplaceDosNewline()
+command! LoadCscope call LoadCscope()
 
 " Buffergator
-let g:buffergator_viewport_split_policy="B"
-let g:buffergator_suppress_keymaps=1
-nnoremap <Leader>bb :BuffergatorOpen<CR>
-nnoremap <Leader>bc :BuffergatorClose<CR>
-nnoremap <Leader>btt :BuffergatorTabsOpen<CR>
-nnoremap <Leader>btc :BuffergatorTabsClose<CR>
+" let g:buffergator_viewport_split_policy="B"
+" let g:buffergator_suppress_keymaps=1
+" nnoremap <Leader>bb :BuffergatorOpen<CR>
+" nnoremap <Leader>bc :BuffergatorClose<CR>
+" nnoremap <Leader>btt :BuffergatorTabsOpen<CR>
+" nnoremap <Leader>btc :BuffergatorTabsClose<CR>
 
 " Ack.vim"
-let g:ackprg = 'rg --vimgrep --no-heading --smart-case '
+let g:ackprg = 'rg -uuu --vimgrep --no-heading --smart-case -g "!test" --glob-case-insensitive'
 cnoreabbrev Ack Ack!
 " Ack.vim keymapping
 nnoremap <Leader>a :Ack!<Space>
-nnoremap <Leader>wa :Ack! <C-R>=expand("<cword>")<CR><CR>
+nnoremap <Leader>A :Ack! <C-R>=expand("<cword>")<CR> 
+" nnoremap <Leader>wA :Ack! <C-R>=expand("<cword>")<CR><CR>
 
 " fzf.vim
 let g:fzf_files_options = '--preview "bat --theme="OneHalfDark" --style=numbers,changes --color always {2..-1} | head -'.&lines.'"'
@@ -223,17 +210,16 @@ endfunction
 
 command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
 " fzf.vim keymapping
-nnoremap <Leader>e :Buffers<CR>
-nnoremap <Leader>t :Files<CR>
-nnoremap <Leader>r :Tags<CR>
-nnoremap <Leader>q :RG<CR>
-nnoremap <Leader>wq :RG <C-R><C-W><CR>
-nnoremap <Leader>x :cclose<CR>
-nnoremap <Leader>z :Ag<Space>
-nnoremap <Leader>wz :Ag <C-R>=expand("<cword>")<CR><CR>
-nnoremap <Leader>bl :Lines<Space><CR>
-nnoremap <Leader>l :BLines<Space><CR>
-nnoremap <Leader>wl :BLines <C-R>=expand("<cword>")<CR><CR>
+" nnoremap <Leader>e :Buffers<CR>
+" nnoremap <Leader>t :Files<CR>
+" nnoremap <Leader>r :Tags<CR>
+" nnoremap <Leader>q :RG<CR>
+" nnoremap <Leader>wq :RG <C-R><C-W><CR>
+" nnoremap <Leader>z :Ag<Space>
+" nnoremap <Leader>wz :Ag <C-R>=expand("<cword>")<CR><CR>
+" nnoremap <Leader>bl :Lines<Space><CR>
+" nnoremap <Leader>l :BLines<Space><CR>
+" nnoremap <Leader>wl :BLines <C-R>=expand("<cword>")<CR><CR>
 
 " coc.nvim
 nnoremap <leader>c :CocSearch<Space>
@@ -247,22 +233,36 @@ nnoremap <leader>wc :CocSearch <C-R>=expand("<cword>")<CR> -g *.[ch]<CR>
 " nnoremap <leader>fb :Telescope buffers<cr>
 " nnoremap <leader>fh :Telescope help_tags<cr>
 " nnoremap <C-_> :Telescope current_buffer_fuzzy_find sorting_strategy=ascending<cr>
-" nnoremap <leader>fF :execute 'Telescope find_files default_text=' . expand('<cword>')<cr>
+" nnoremap <leader>fF :execute 'Telescope find_files search_file=' . expand('<cword>')<cr>
 " nnoremap <leader>fG :execute 'Telescope live_grep default_text=' . expand('<cword>')<cr>
 
 " lua-style
 " nnoremap <leader>ff <cmd>lua require('telescope.builtin').find_files(require('telescope.themes').get_dropdown({ winblend = 10 }))<cr>
 " nnoremap <leader>ff <cmd>lua require('telescope.builtin').find_files(require('telescope.themes').get_ivy())<cr>
+" nnoremap <leader>fF <cmd>lua require('telescope.builtin').find_files({default_text = "keymaps"})<cr>
 nnoremap <leader>ff <cmd>lua require('telescope.builtin').find_files()<cr>
 nnoremap <leader>fg <cmd>lua require('telescope.builtin').live_grep()<cr>
 nnoremap <leader>fb <cmd>lua require('telescope.builtin').buffers()<cr>
 nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>
+nnoremap <leader>fr <cmd>lua require('telescope.builtin').tags()<cr>
+nnoremap <leader>fm <cmd>lua require('telescope.builtin').marks()<cr>
+nnoremap <leader>ft <cmd>lua require('telescope.builtin').treesitter()<cr>
 nnoremap <C-_> <cmd>lua require('mytelescope').curr_buf()<cr>
+nnoremap <leader>fd :bprevious<CR>:bdelete #<CR>
+
 
 " nvim-style
 nnoremap <leader>fG :execute 'Telescope grep_string sorting_strategy=ascending search=' . expand('<cword>')<cr>
+nnoremap <leader>fR :execute 'Telescope tags default_text=' . expand('<cword>')<cr>
 nnoremap <leader>fl :Telescope live_grep grep_open_files=true sorting_strategy=ascending<cr>
+nnoremap <leader>fF :execute 'Telescope find_files default_text=' . expand('<cword>')<cr>
+nnoremap <leader>fT :execute 'Telescope treesitter default_text=' . expand('<cword>')<cr>
+nnoremap <leader>/ :execute 'Telescope current_buffer_fuzzy_find sorting_strategy=ascending default_text=' . expand('<cword>')<cr>
 " telescope config end
+
+" tagbar
+" let g:tagbar_ctags_bin='C:\\Brose\\piskuro\\EE\\msyshome\\bin\\ctags'
+let g:tagbar_use_cache=0
 
 function! WinMove(key)
     let t:curwin = winnr()
@@ -287,7 +287,13 @@ function! TrimWhitespace()
 endfunction
 
 function! ReplaceDosNewline()
-    silent! :%s/$//g
+    silent! :%s/\r$//g
 endfunction
+
+" augroup remember_folds
+"     autocmd!
+"     autocmd BufWinLeave ?* mkview | filetype detect
+"     autocmd BufWinEnter ?* silent loadview | filetype detect
+" augroup END
 
 lua require('init')
