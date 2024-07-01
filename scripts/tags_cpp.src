@@ -1,25 +1,40 @@
 #!/bin/bash
 
-CSCOPE_DIR="$PWD/cscope"
+PROJECT_ROOT_PATH="$HOME/project/SW_bmw_sm_06_scu-blessed"
+TOOLCHAIN_PATH="/c/build_tool/T_gcc_arm~V10-2020-q4/T_gcc_arm/lib/gcc/arm-none-eabi/10.2.1/include"
+# CYGWIN_PROJECT_ROOT_PATH="/c/Brose/piskuro/EE/msyshome/project/SW_bmw_sm_06_scu-blessed"
+TAGSDB_PATH="$PROJECT_ROOT_PATH/tagsdb"
+# TAGSDB_PATH="$CYGWIN_PROJECT_ROOT_PATH/tagsdb"
 
-if [ ! -d "$CSCOPE_DIR" ]; then
-	mkdir "$CSCOPE_DIR"
+if [ ! -d "$TAGSDB_PATH" ]; then
+	mkdir "$TAGSDB_PATH"
 fi
 
-echo "Finding files ..."
-find "$(pwd)" \
-	-path "*utest*" -prune \
-	-o -path "*demo*" -prune \
-	-o -path "*build*" -prune \
-	-o -path "$(pwd)/*.[chS]" -print \
-	> "$CSCOPE_DIR/cscope.files"
+echo "Generate sources list ..."
+fd '.*\.(h|c|cpp|hpp|cfg)$' --no-ignore --exclude 'test' --exclude 'googletest' --exclude 'gtest' $PROJECT_ROOT_PATH \
+	| tee "$TAGSDB_PATH/ctags.files" "$TAGSDB_PATH/cscope.files" >/dev/null
 
-echo "Adding files to cscope db: $PWD/cscope.db ..."
-cscope -b -i "$CSCOPE_DIR/cscope.files"
+fd '.*\.(h|c|cpp|hpp|cfg)$' --no-ignore $TOOLCHAIN_PATH \
+	| tee -a "$TAGSDB_PATH/ctags.files" "$TAGSDB_PATH/cscope.files" >/dev/null
 
-export CSCOPE_DB="$PWD/cscope.out"
+pushd .
+cd "$TAGSDB_PATH"
+
+# sed -i 's/C\:/\/c/g' $TAGSDB_PATH/cscope.files
+
+echo "Generating cscope tags ..."
+cscope -b -q -i "$TAGSDB_PATH/cscope.files"
+export CSCOPE_DB="$TAGSDB_PATH/cscope.out"
 echo "Exported CSCOPE_DB to: '$CSCOPE_DB'"
 
+popd
+
 echo "Generating ctags tags ..."
-ctags --c++-kinds=+Nlp --fields=+iaSt --extras=+q --language-force=C++ -R
+# ctags --c++-kinds=+Nlp --fields=+iaSt --extras=+q --language-force=C++ -L "$TAGSDB_PATH/ctags.files"
+# ctags --c++-kinds=+Nl --fields=+iaSt --extras=+q --language-force=C++ -L "$TAGSDB_PATH/ctags.files"
+ctags -L "$TAGSDB_PATH/ctags.files"
+# export CTAGS_DB="$TAGSDB_PATH/tags"
+export CTAGS_DB="tags"
+echo "Exported CTAGS_DB to: '$CTAGS_DB'"
+
 echo "Done"
