@@ -1,0 +1,13 @@
+require("config.lazy")
+require("lazy").setup("plugins")
+require("config.mylsp")
+require("config.mytreesitter")
+require("config.mytelescope")
+require("config.mystatusline")
+require("config.mycscope_maps")
+require("config.mygitsigns")
+require("config.myrgflow")
+require("config.myicons")
+
+require("options")
+require("keymaps")

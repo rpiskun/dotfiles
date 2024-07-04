@@ -1,7 +1,8 @@
 #!/bin/bash
 
-PROJECT_ROOT_PATH="$HOME/project/SW_bmw_sm_06_scu-blessed"
-TOOLCHAIN_PATH="/c/build_tool/T_gcc_arm~V10-2020-q4/T_gcc_arm/lib/gcc/arm-none-eabi/10.2.1/include"
+PROJECT_ROOT_PATH=$(pwd)
+# TOOLCHAIN_PATH="/c/build_tool/T_gcc_arm~V10-2020-q4/T_gcc_arm/lib/gcc/arm-none-eabi/10.2.1/include"
+TOOLCHAIN_PATH=$(pwd)
 # CYGWIN_PROJECT_ROOT_PATH="/c/Brose/piskuro/EE/msyshome/project/SW_bmw_sm_06_scu-blessed"
 TAGSDB_PATH="$PROJECT_ROOT_PATH/tagsdb"
 # TAGSDB_PATH="$CYGWIN_PROJECT_ROOT_PATH/tagsdb"
