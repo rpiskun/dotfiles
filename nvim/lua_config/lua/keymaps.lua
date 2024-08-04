@@ -75,6 +75,9 @@ keymap.set('n', '<leader>fh', builtin.help_tags, {noremap = true})
 keymap.set('n', '<leader>fr', builtin.tags, {noremap = true})
 keymap.set('n', '<leader>fm', builtin.marks, {noremap = true})
 keymap.set('n', '<leader>ft', builtin.treesitter, {noremap = true})
+vim.cmd [[nnoremap <leader>fR :execute 'Telescope tags default_text=' . expand('<cword>')<cr>]]
+vim.cmd [[nnoremap <leader>fT :execute 'Telescope treesitter default_text=' . expand('<cword>')<cr>]]
+-- keymap.set('n', '<leader>fT', builtin.treesitter, {noremap = true, default_text = builtin.grep_string})
 -- keymap.set("n", "<C-_>", require('config.mytelescope').curr_buf, {noremap = true})
 keymap.set("n", "<C-_>", function()
     local opts = {
