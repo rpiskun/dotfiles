@@ -14,22 +14,31 @@ require('telescope').setup {
   pickers = {
     find_files = {
         -- find_command = { "fd", "-uuu", "--type", "f", "--strip-cwd-prefix" }
-        -- find_command = { "fdfind", "-uuu", "--type", "f", "--strip-cwd-prefix", "--exclude", "test"},
-        find_command = { "fdfind", "--type", "f", "--strip-cwd-prefix"},
+        find_command = { "fd", "-uuu", "--type", "f", "--strip-cwd-prefix", "--exclude", "test", "--path-separator", "/" },
         -- find_command = {"rg",  "--files", "--no-ignore", "--hidden"}
     },
 	live_grep = {
       mappings = {
-		    i = { ["<c-f>"] = actions.to_fuzzy_refine },
+		i = { ["<c-f>"] = actions.to_fuzzy_refine },
       },
+    },
+    tags = {
+      fname_width = 50,
+      show_line = true,
+    },
+    treesitter = {
+      symbol_width = 80,
+      show_line = true,
     },
   },
   defaults = {
     file_ignore_patterns = {
-        "*/tagsdb/*",
+        "*\\tagsdb\\*",
         "tags",
         "cscope.out",
-        -- ".git"
+        "*\\test\\*",
+        "*\\gtest\\*",
+        ".git"
     },
     mappings = { 
         i = {
@@ -48,12 +57,15 @@ require('telescope').setup {
       '--smart-case',
       -- '-u',
     },
+    path_display = {
+      "smart",
+    },
+
   }
 }
 -- To get fzf loaded and working with telescope, you need to call
 -- load_extension, somewhere after setup function:
 require('telescope').load_extension('fzf')
-require('telescope').load_extension('live_grep_args')
 
 local mappings = {
 

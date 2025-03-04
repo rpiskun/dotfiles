@@ -1,9 +1,9 @@
 " Specify a dgrectory for plugins
 " - For Neovim: stdpath('data') . '/plugged'
 " - Avoid using standard Vim directory names like 'plugin'
-call plug#begin(stdpath('data') . '/plugged')
+" call plug#begin(stdpath('data') . '/plugged')
 
-Plug 'scrooloose/nerdtree'
+" Plug 'scrooloose/nerdtree'
 " Plug 'morhetz/gruvbox'
 " Plug 'gruvbox-community/gruvbox'
 " Plug 'ayu-theme/ayu-vim'
@@ -11,26 +11,26 @@ Plug 'scrooloose/nerdtree'
 " Plug 'vim-airline/vim-airline-themes'
 " Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " Plug 'ycm-core/YouCompleteMe'
-Plug 'tpope/vim-fugitive'
-Plug 'junegunn/vim-easy-align'
-Plug 'Yggdroot/indentLine'
+" Plug 'tpope/vim-fugitive'
+" Plug 'junegunn/vim-easy-align'
+" Plug 'Yggdroot/indentLine'
 " Plug 'airblade/vim-gitgutter'
-Plug 'mileszs/ack.vim'
+" Plug 'mileszs/ack.vim'
 " Plug 'tpope/vim-surround'
-Plug 'tpope/vim-repeat'
+" Plug 'tpope/vim-repeat'
 " Plug 'preservim/nerdcommenter'
 " Plug 'junegunn/fzf', { 'do': './install --all' }
 " Plug 'junegunn/fzf.vim'
-Plug 'preservim/tagbar'
-Plug 'rust-lang/rust.vim'
-Plug 'rafi/awesome-vim-colorschemes'
-Plug 'kyazdani42/nvim-web-devicons'
-Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' }
+" Plug 'preservim/tagbar'
+" Plug 'rust-lang/rust.vim'
+" Plug 'rafi/awesome-vim-colorschemes'
+" Plug 'kyazdani42/nvim-web-devicons'
+" Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' }
 " Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+" Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 
 " Initialize plugin system
-call plug#end()
+" call plug#end()
 
 " to make shell works in msys2 environment. Windows cmd.exe is used
 set shell=cmd.exe noshellslash shellquote&vim shellxquote&vim
@@ -47,10 +47,11 @@ set termguicolors
 " set t_ut=
 set background=dark
 " This configuration option should be placed before 'colorscheme gruvbox-material'
-let g:gruvbox_material_background = 'hard'
-let g:gruvbox_material_disable_italic_comment=1
-let g:gruvbox_material_enable_bold=1
-colorscheme gruvbox-material
+" let g:gruvbox_material_background = 'hard'
+" let g:gruvbox_material_disable_italic_comment=1
+" let g:gruvbox_material_enable_bold=1
+" colorscheme gruvbox-material
+packadd cfilter
 
 " colorscheme rose-pine
 " let g:gruvbox_contrast_dark = 'hard'
@@ -102,7 +103,7 @@ nnoremap <silent> [f :cprev<CR>
 nnoremap <silent> ]f :cnext<CR>
 nnoremap <silent> [l :lprev<CR>
 nnoremap <silent> ]l :lnext<CR>
-command! BufOnly silent! execute "%bd|e#|bd#"
+command! BufOnly silent! execute "%bd|e#|bd#|normal! \<c-o>"
 " autocmd BufWritePre * :call TrimWhitespace()
 
 " Sets
@@ -188,11 +189,11 @@ command! LoadCscope call LoadCscope()
 " nnoremap <Leader>btc :BuffergatorTabsClose<CR>
 
 " Ack.vim"
-let g:ackprg = 'rg -uuu --vimgrep --no-heading --smart-case -g "!test" --glob-case-insensitive'
-cnoreabbrev Ack Ack!
+" let g:ackprg = 'rg -uuu --vimgrep --no-heading --smart-case -g "!test" --glob-case-insensitive -S --path-separator /'
+" cnoreabbrev Ack Ack!
 " Ack.vim keymapping
-nnoremap <Leader>a :Ack!<Space>
-nnoremap <Leader>A :Ack! <C-R>=expand("<cword>")<CR> 
+" nnoremap <Leader>a :Ack!<Space>
+" nnoremap <Leader>A :Ack! <C-R>=expand("<cword>")<CR> 
 " nnoremap <Leader>wA :Ack! <C-R>=expand("<cword>")<CR><CR>
 
 " fzf.vim
@@ -249,6 +250,8 @@ nnoremap <leader>fm <cmd>lua require('telescope.builtin').marks()<cr>
 nnoremap <leader>ft <cmd>lua require('telescope.builtin').treesitter()<cr>
 nnoremap <C-_> <cmd>lua require('mytelescope').curr_buf()<cr>
 nnoremap <leader>fd :bprevious<CR>:bdelete #<CR>
+nnoremap <leader>a <cmd>lua require('rgflow').open()<cr>
+nnoremap <leader>A <cmd>lua require('rgflow').open_cword()<cr>
 
 
 " nvim-style

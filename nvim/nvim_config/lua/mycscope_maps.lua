@@ -10,7 +10,7 @@ require('cscope_maps').setup {
       -- cscope executable
       exec = "cscope", -- "cscope" or "gtags-cscope"
       -- choose your fav picker
-      picker = "telescope", -- "telescope", "fzf-lua" or "quickfix"
+      picker = "quickfix", -- "telescope", "fzf-lua" or "quickfix"
       -- "true" does not open picker for single result, just JUMP
       skip_picker_for_single_result = true, -- "false" or "true"
       -- these args are directly passed to "cscope -f <db_file> <args>"

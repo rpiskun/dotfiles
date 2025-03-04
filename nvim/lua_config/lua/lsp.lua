@@ -9,7 +9,7 @@ local custom_attach = function(client, bufnr)
     vim.lsp.set_log_level("debug")
     -- vim.lsp.set_log_level("off")
     -- disable diagnostic by default
-    vim.diagnostic.disable()
+    vim.diagnostic.enable(false, nil)
     local bufopts = { noremap=true, silent=true, buffer=bufnr }
     vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
     vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)

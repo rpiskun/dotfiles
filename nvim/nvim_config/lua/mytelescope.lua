@@ -22,6 +22,14 @@ require('telescope').setup {
 		i = { ["<c-f>"] = actions.to_fuzzy_refine },
       },
     },
+    tags = {
+      fname_width = 50,
+      show_line = true,
+    },
+    treesitter = {
+      symbol_width = 80,
+      show_line = true,
+    },
   },
   defaults = {
     file_ignore_patterns = {
@@ -49,6 +57,10 @@ require('telescope').setup {
       '--smart-case',
       -- '-u',
     },
+    path_display = {
+      "smart",
+    },
+
   }
 }
 -- To get fzf loaded and working with telescope, you need to call
